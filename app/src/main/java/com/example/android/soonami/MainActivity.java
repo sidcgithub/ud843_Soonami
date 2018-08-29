@@ -164,12 +164,14 @@ public class MainActivity extends AppCompatActivity {
                 urlConnection.connect();
                 inputStream = urlConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
-                if(!jsonResponse.contains("\"status\":200"))//should have used urlConnection.getresponsecode =200  .. Mistake
+                if(urlConnection.getResponseCode()!=200)//should have used urlConnection.getresponsecode =200  .. Mistake
                 {
+
+                    Log.e("The code is ", Integer.toString(urlConnection.getResponseCode()));
                     jsonResponse = "";
                 }
             } catch (IOException e) {
-                // TODO: Handle the exception
+                Log.e("IOException",e.toString());
             } finally {
                 if (urlConnection != null) {
                     urlConnection.disconnect();
